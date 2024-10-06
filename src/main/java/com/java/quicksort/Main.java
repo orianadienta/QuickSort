@@ -56,15 +56,15 @@ public class Main {
                         int quickSortChoice = scanner.nextInt();
                         scanner.nextLine();
 
-                        boolean printSteps = array.getSize() <= 10;
-                        
+                        boolean printSteps = array.getSize() == 10;
+
                         Instant startTime = Instant.now();
 
                         if (quickSortChoice == 1) {
-                            System.out.println("Quick Sort dengan pivot di bagian tengah:");
+                            System.out.println("Quick Sort dengan pivot pada bagian tengah");
                             Array.quickSortMiddlePivot(array.getArray(), 0, array.getSize() - 1, printSteps);
                         } else if (quickSortChoice == 2) {
-                            System.out.println("Quick Sort dengan pivot di bagian ujung:");
+                            System.out.println("Quick Sort dengan pivot pada bagian kanan");
                             Array.quickSortLastPivot(array.getArray(), 0, array.getSize() - 1, printSteps);
                         } else {
                             System.out.println("Pilihan tidak valid, kembali ke menu utama.");
