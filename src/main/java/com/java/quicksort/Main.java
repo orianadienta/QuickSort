@@ -49,11 +49,27 @@ public class Main {
 
                 case 3:
                     if (array.getSize() > 0) {
+                        System.out.println("Pilih metode quick sort:");
+                        System.out.println("1. Pivot dibagian tengah array");
+                        System.out.println("2. Pivot dibagian ujung array ");
+                        System.out.print("Pilihan Anda: ");
+                        int quickSortChoice = scanner.nextInt();
+                        scanner.nextLine();
+
+                        boolean printSteps = array.getSize() <= 10;
+                        
                         Instant startTime = Instant.now();
 
-                        // Hanya print step jika ukuran array <= 10
-                        boolean printSteps = array.getSize() <= 10;
-                        Array.quickSort(array.getArray(), 0, array.getSize() - 1, printSteps);
+                        if (quickSortChoice == 1) {
+                            System.out.println("Quick Sort dengan pivot di bagian tengah:");
+                            Array.quickSortMiddlePivot(array.getArray(), 0, array.getSize() - 1, printSteps);
+                        } else if (quickSortChoice == 2) {
+                            System.out.println("Quick Sort dengan pivot di bagian ujung:");
+                            Array.quickSortLastPivot(array.getArray(), 0, array.getSize() - 1, printSteps);
+                        } else {
+                            System.out.println("Pilihan tidak valid, kembali ke menu utama.");
+                            break;
+                        }
 
                         Instant endTime = Instant.now();
 
