@@ -49,6 +49,7 @@ public class Array {
         }
     }
 
+    //pivot ditengah array
     public static void quickSortMiddlePivot(int[] array, int lowIndex, int highIndex, boolean printSteps) {
         if (lowIndex >= highIndex) {
             return;
@@ -92,6 +93,54 @@ public class Array {
         // fungsi rekursif untuk sorting array kanan dan kiri
         quickSortMiddlePivot(array, lowIndex, rightPointer, printSteps); // sebelah kiri pivot
         quickSortMiddlePivot(array, leftPointer, highIndex, printSteps); // sebelah kanan pivot
+    }
+    
+    // pivot dikanan array
+    public static void quickSortLastPivot(int[] array, int lowIndex, int highIndex, boolean printSteps) {
+        if (lowIndex >= highIndex) {
+            return;
+        }
+        int pivot = array[highIndex]; // Select the last element as pivot
+
+        if (printSteps) {
+            System.out.println("Pivot selected: " + pivot);
+            printStepArray(array);
+        }
+
+        int leftPointer = lowIndex;
+        int rightPointer = highIndex - 1; // Exclude pivot itself during partitioning
+
+        while (leftPointer <= rightPointer) {
+            while (array[leftPointer] <= pivot && leftPointer < highIndex) {
+                leftPointer++;
+            }
+
+            while (array[rightPointer] >= pivot && rightPointer > lowIndex) {
+                rightPointer--;
+            }
+
+            if (leftPointer < rightPointer) {
+                if (array[leftPointer] != array[rightPointer]) {  // Only swap if the elements are different
+                    System.out.println("Swapping elements: " + array[leftPointer] + " and " + array[rightPointer]);
+                    swap(array, leftPointer, rightPointer);
+                    if (printSteps) {
+                        printStepArray(array);  // Print array after swapping
+                    }
+                }
+            }
+        }
+
+        // Swap pivot into the correct place
+        if (array[leftPointer] != array[highIndex]) {
+            swap(array, leftPointer, highIndex);
+            if (printSteps) {
+                System.out.println("Swapping pivot into place: " + array[leftPointer] + " and " + array[highIndex]);
+                printStepArray(array);  // Print array after placing pivot
+            }
+        }
+
+        quickSortLastPivot(array, lowIndex, leftPointer - 1, printSteps);
+        quickSortLastPivot(array, leftPointer + 1, highIndex, printSteps);
     }
     
     // print setiap langkah untuk 10 angka acak
