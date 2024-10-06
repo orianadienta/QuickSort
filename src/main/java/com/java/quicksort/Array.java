@@ -28,7 +28,7 @@ public class Array {
     }
 
     public void printArray() {
-        int elementsPerRow = 100; // jumlah elemen per baris
+        int elementsPerRow = 500; // jumlah elemen per baris
         for (int i = 0; i < size; i++) {
             System.out.print(array[i] + " ");
             if ((i + 1) % elementsPerRow == 0) { //kalau sudah dicetak 40 elemen, pindah ke bawah
@@ -80,9 +80,9 @@ public class Array {
 
             if (leftPointer <= rightPointer) {
                 if (array[leftPointer] != array[rightPointer]) {  // Only swap if the elements are different
-                    System.out.println("Swapping elements: " + array[leftPointer] + " and " + array[rightPointer]);
                     swap(array, leftPointer, rightPointer);  // Swap happens here
                     if (printSteps) {
+                        System.out.println("Swapping elements: " + array[leftPointer] + " and " + array[rightPointer]);
                         printStepArray(array);  // Now print after the swap
                     }
                 }
@@ -94,7 +94,7 @@ public class Array {
         quickSortMiddlePivot(array, lowIndex, rightPointer, printSteps); // sebelah kiri pivot
         quickSortMiddlePivot(array, leftPointer, highIndex, printSteps); // sebelah kanan pivot
     }
-    
+
     // pivot dikanan array
     public static void quickSortLastPivot(int[] array, int lowIndex, int highIndex, boolean printSteps) {
         if (lowIndex >= highIndex) {
@@ -108,9 +108,9 @@ public class Array {
         }
 
         int leftPointer = lowIndex;
-        int rightPointer = highIndex - 1; // Exclude pivot itself during partitioning
+        int rightPointer = highIndex; // Exclude pivot itself during partitioning
 
-        while (leftPointer <= rightPointer) {
+        while (leftPointer < rightPointer) {
             while (array[leftPointer] <= pivot && leftPointer < highIndex) {
                 leftPointer++;
             }
@@ -121,9 +121,9 @@ public class Array {
 
             if (leftPointer < rightPointer) {
                 if (array[leftPointer] != array[rightPointer]) {  // Only swap if the elements are different
-                    System.out.println("Swapping elements: " + array[leftPointer] + " and " + array[rightPointer]);
                     swap(array, leftPointer, rightPointer);
                     if (printSteps) {
+                        System.out.println("Swapping elements: " + array[leftPointer] + " and " + array[rightPointer]);
                         printStepArray(array);  // Print array after swapping
                     }
                 }
@@ -142,7 +142,7 @@ public class Array {
         quickSortLastPivot(array, lowIndex, leftPointer - 1, printSteps);
         quickSortLastPivot(array, leftPointer + 1, highIndex, printSteps);
     }
-    
+
     // print setiap langkah untuk 10 angka acak
     public static void printStepArray(int[] array) {
         System.out.println(Arrays.toString(array));
