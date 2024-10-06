@@ -49,57 +49,51 @@ public class Array {
         }
     }
 
-    public static void quickSort(int[] array, int lowIndex, int highIndex, boolean printSteps) {
+    public static void quickSortMiddlePivot(int[] array, int lowIndex, int highIndex, boolean printSteps) {
         if (lowIndex >= highIndex) {
             return;
         }
 
         int pivotIndex = lowIndex + (highIndex - lowIndex) / 2;
-        int pivot = array[pivotIndex];
+        int pivot = array[pivotIndex];  // No moving pivot to the end
 
         if (printSteps) {
             System.out.println("Pivot selected: " + pivot + " at index " + pivotIndex);
             printStepArray(array);
         }
 
-        swap(array, pivotIndex, highIndex);
-
-        if (printSteps) {
-            System.out.println("Array after moving pivot to the end: ");
-            printStepArray(array);
-        }
-
         int leftPointer = lowIndex;
         int rightPointer = highIndex;
 
-        while(leftPointer < rightPointer) {
-            while(array[leftPointer] <= pivot && leftPointer < rightPointer) {
+        // Begin partitioning around the pivot without moving it
+        while (leftPointer <= rightPointer) {
+            // Move left pointer until finding an element greater than or equal to the pivot
+            while (array[leftPointer] < pivot) {
                 leftPointer++;
             }
 
-            while (array[rightPointer] >= pivot && leftPointer < rightPointer) {
+            // Move right pointer until finding an element less than or equal to the pivot
+            while (array[rightPointer] > pivot) {
                 rightPointer--;
             }
 
-            if(leftPointer < rightPointer) {
-                if (printSteps) {
+            if (leftPointer <= rightPointer) {
+                if (array[leftPointer] != array[rightPointer]) {  // Only swap if the elements are different
                     System.out.println("Swapping elements: " + array[leftPointer] + " and " + array[rightPointer]);
-                    printStepArray(array);
+                    swap(array, leftPointer, rightPointer);  // Swap happens here
+                    if (printSteps) {
+                        printStepArray(array);  // Now print after the swap
+                    }
                 }
-                swap(array, leftPointer, rightPointer);
+                leftPointer++;
+                rightPointer--;
             }
         }
-        swap(array, leftPointer, highIndex);
-
-        if (printSteps) {
-            System.out.println("Array after placing pivot in correct position: ");
-            printStepArray(array);
-        }
-
-        quickSort(array, lowIndex, leftPointer - 1, printSteps);
-        quickSort(array, leftPointer + 1, highIndex, printSteps);
+        // fungsi rekursif untuk sorting array kanan dan kiri
+        quickSortMiddlePivot(array, lowIndex, rightPointer, printSteps); // sebelah kiri pivot
+        quickSortMiddlePivot(array, leftPointer, highIndex, printSteps); // sebelah kanan pivot
     }
-
+    
     // print setiap langkah untuk 10 angka acak
     public static void printStepArray(int[] array) {
         System.out.println(Arrays.toString(array));
